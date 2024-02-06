@@ -59,9 +59,11 @@ public class AppleControllerImpl<T> implements AppleController {
     public void remove(int countOfApples) {
         if (apple.getStorage() - countOfApples <= 0) {
             apple.setStorage(0);
-            init();
+            fileManager.updateFile(appleList);
         }
-        apple.setStorage(apple.getStorage() - countOfApples);
-
+        else {
+            apple.setStorage(apple.getStorage() - countOfApples);
+            fileManager.updateFile(appleList);
+        }
     }
 }

@@ -24,7 +24,7 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         appleRepository.init();
-        appleRepository.add(3);
+        appleRepository.remove(3);
         System.out.println(appleRepository.get());
     }
 }
