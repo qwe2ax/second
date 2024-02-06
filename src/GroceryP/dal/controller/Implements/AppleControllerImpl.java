@@ -1,7 +1,7 @@
-package GroceryP.data.controller.Implements;
+package GroceryP.dal.controller.Implements;
 
 import GroceryP.FileManager;
-import GroceryP.data.controller.Interfaces.AppleController;
+import GroceryP.dal.controller.Interfaces.AppleController;
 import GroceryP.entities.Apple;
 
 import java.io.File;

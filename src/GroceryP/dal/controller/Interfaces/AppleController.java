@@ -1,4 +1,4 @@
-package GroceryP.data.controller.Interfaces;
+package GroceryP.dal.controller.Interfaces;
 
 public interface AppleController extends BaseController {
 }

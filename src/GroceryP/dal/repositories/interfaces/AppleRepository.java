@@ -1,4 +1,4 @@
-package GroceryP.data.repositories.interfaces;
+package GroceryP.dal.repositories.interfaces;
 
 import GroceryP.entities.Apple;
 

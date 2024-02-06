@@ -1,8 +1,8 @@
-package GroceryP.data.repositories.implementations;
+package GroceryP.dal.repositories.implementations;
 
-import GroceryP.data.controller.Implements.AppleControllerImpl;
-import GroceryP.data.controller.Interfaces.AppleController;
-import GroceryP.data.repositories.interfaces.AppleRepository;
+import GroceryP.dal.controller.Implements.AppleControllerImpl;
+import GroceryP.dal.controller.Interfaces.AppleController;
+import GroceryP.dal.repositories.interfaces.AppleRepository;
 import GroceryP.entities.Apple;
 
 import java.io.FileNotFoundException;

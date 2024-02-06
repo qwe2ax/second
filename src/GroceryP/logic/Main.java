@@ -1,8 +1,8 @@
 package GroceryP.logic;
 
 import GroceryP.FileManager;
-import GroceryP.data.repositories.implementations.AppleRepositoryImpl;
-import GroceryP.data.repositories.interfaces.AppleRepository;
+import GroceryP.dal.repositories.implementations.AppleRepositoryImpl;
+import GroceryP.dal.repositories.interfaces.AppleRepository;
 import GroceryP.entities.Apple;
 
 import java.io.FileNotFoundException;

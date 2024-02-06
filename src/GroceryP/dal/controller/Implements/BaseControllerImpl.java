@@ -1,6 +1,6 @@
-package GroceryP.data.controller.Implements;
+package GroceryP.dal.controller.Implements;
 
-import GroceryP.data.controller.Interfaces.BaseController;
+import GroceryP.dal.controller.Interfaces.BaseController;
 
 import java.io.*;
 import java.util.ArrayList;
