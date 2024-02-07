@@ -1,11 +1,10 @@
-package GroceryP.dal.controller.Implements;
+package GroceryP.dal.controller.implementations;
 
-import GroceryP.dal.controller.Interfaces.BaseController;
+import GroceryP.dal.controller.interfaces.BaseController;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 
 public class BaseControllerImpl<T> implements BaseController {

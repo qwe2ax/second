@@ -1,7 +1,7 @@
 package GroceryP.dal.repositories.implementations;
 
-import GroceryP.dal.controller.Implements.AppleControllerImpl;
-import GroceryP.dal.controller.Interfaces.AppleController;
+import GroceryP.dal.controller.implementations.AppleControllerImpl;
+import GroceryP.dal.controller.interfaces.AppleController;
 import GroceryP.dal.repositories.interfaces.AppleRepository;
 import GroceryP.entities.Apple;
 
@@ -16,10 +16,6 @@ public class AppleRepositoryImpl implements AppleRepository {
 
     AppleController appleController = new AppleControllerImpl<>();
 
-    public AppleRepositoryImpl() throws FileNotFoundException {
-        applesList = new ArrayList<>();
-    }
-
 
     @Override
     public void init() {
@@ -32,12 +28,12 @@ public class AppleRepositoryImpl implements AppleRepository {
     }
 
     @Override
-    public void add(int countOfApples) {
+    public void add(int countOfApples) throws FileNotFoundException {
         appleController.add(countOfApples);
     }
 
     @Override
-    public void remove(int countOfApples) {
+    public void remove(int countOfApples) throws FileNotFoundException {
         appleController.remove(countOfApples);
     }
 }

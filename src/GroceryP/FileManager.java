@@ -4,19 +4,40 @@ package GroceryP;
 import GroceryP.entities.Apple;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class FileManager<T> {
 
-    File storage = new File("yabloki.txt");
+    static File storage = new File("products.txt");
+
+    static Scanner scanner;
+
+    static {
+        try {
+            scanner = new Scanner(storage);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
-    public void updateFile(List<T> someProduct) {
+    public void updateFile(List<T> someProduct) throws FileNotFoundException {
+        StringBuilder res = new StringBuilder();
+        Scanner scanner = new Scanner(storage);
+        while (scanner.hasNextLine()) {
+            String[] ar = someProduct.toString().toLowerCase().split(":");
+            String str = scanner.nextLine();
+            if (!str.toLowerCase().contains(ar[1])) {
+                res.append(str);
+            }
+        }
         try {
             PrintWriter printWriter = new PrintWriter(storage);
-            for (T apple : someProduct) {
-                printWriter.println(apple + "\n");
+            printWriter.println(res);
+            for (T product : someProduct) {
+                printWriter.println(product + "\n");
             }
             printWriter.close();
         } catch (FileNotFoundException e) {
@@ -25,8 +46,8 @@ public class FileManager<T> {
     }
 
     public int priceChanger(String product) throws IOException {
-        Scanner scanner = new Scanner(storage);
         product = product.toLowerCase();
+        Scanner scanner = new Scanner(storage);
         while (scanner.hasNextLine()) {
             String str = scanner.nextLine().toLowerCase();
             if (str.contains(product)) {
@@ -38,9 +59,8 @@ public class FileManager<T> {
     }
 
     public int storageChanger(String product) throws IOException {
-
-        Scanner scanner = new Scanner(storage);
         product = product.toLowerCase();
+        Scanner scanner = new Scanner(storage);
         while (scanner.hasNextLine()) {
             String str = scanner.nextLine().toLowerCase();
             if (str.contains(product)) {

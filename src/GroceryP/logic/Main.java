@@ -2,7 +2,9 @@ package GroceryP.logic;
 
 import GroceryP.FileManager;
 import GroceryP.dal.repositories.implementations.AppleRepositoryImpl;
+import GroceryP.dal.repositories.implementations.MeatRepositoryImpl;
 import GroceryP.dal.repositories.interfaces.AppleRepository;
+import GroceryP.dal.repositories.interfaces.MeatRepository;
 import GroceryP.entities.Apple;
 
 import java.io.FileNotFoundException;
@@ -10,21 +12,18 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class Main {
-    static AppleRepository appleRepository;
+    static AppleRepository appleRepository; static MeatRepository meatRepository;
 
     static {
-        try {
-            appleRepository = new AppleRepositoryImpl();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+        appleRepository = new AppleRepositoryImpl();
+        meatRepository = new MeatRepositoryImpl();
     }
 
     static FileManager fileManager = new FileManager();
 
     public static void main(String[] args) throws IOException {
-        appleRepository.init();
-        appleRepository.remove(3);
-        System.out.println(appleRepository.get());
+        meatRepository.init();
+        meatRepository.remove(2);
+        System.out.println(meatRepository.get());
     }
 }

@@ -1,10 +1,11 @@
-package GroceryP.dal.controller.Implements;
+package GroceryP.dal.controller.implementations;
 
 import GroceryP.FileManager;
-import GroceryP.dal.controller.Interfaces.AppleController;
+import GroceryP.dal.controller.interfaces.AppleController;
 import GroceryP.entities.Apple;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +20,7 @@ public class AppleControllerImpl<T> implements AppleController {
 
     public static Apple apple = null;
     FileManager fileManager = new FileManager();
-    private static final String fileName = "yabloki.txt";
+    private static final String fileName = "products.txt";
     private final File storage = new File(fileName);
 
     @Override
@@ -50,13 +51,13 @@ public class AppleControllerImpl<T> implements AppleController {
     }
 
     @Override
-    public void add(int countOfApples) {
+    public void add(int countOfApples) throws FileNotFoundException {
         apple.setStorage(apple.getStorage() + countOfApples);
         fileManager.updateFile(appleList);
     }
 
     @Override
-    public void remove(int countOfApples) {
+    public void remove(int countOfApples) throws FileNotFoundException {
         if (apple.getStorage() - countOfApples <= 0) {
             apple.setStorage(0);
             fileManager.updateFile(appleList);
