@@ -1,27 +1,13 @@
 package GroceryP;
 
 
-import GroceryP.entities.Apple;
-
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class FileManager<T> {
 
-    static File storage = new File("products.txt");
-
-    static Scanner scanner;
-
-    static {
-        try {
-            scanner = new Scanner(storage);
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
+    public static final File storage = new File("products.txt");
 
     public void updateFile(List<T> someProduct) throws FileNotFoundException {
         StringBuilder res = new StringBuilder();
@@ -31,11 +17,8 @@ public class FileManager<T> {
             String[] ar = someProduct.toString().toLowerCase().split(":");
             String str = scanner.nextLine();
             if (!str.toLowerCase().contains(ar[1])) {
-                if (i == 4 && !str.isEmpty()) {
-                    res.append(str);
-                }
-                else if (!str.isEmpty()) {
-                    res.append(str).append("\n");
+                if (!str.isEmpty()) {
+                    res.append("\n").append(str);
                 }
             }
             i++;
@@ -52,7 +35,7 @@ public class FileManager<T> {
         }
     }
 
-    public int priceChanger(String product) throws IOException {
+    public int priceChecker(String product) throws IOException {
         product = product.toLowerCase();
         Scanner scanner = new Scanner(storage);
         while (scanner.hasNextLine()) {
@@ -65,7 +48,7 @@ public class FileManager<T> {
         return -1;
     }
 
-    public int storageChanger(String product) throws IOException {
+    public int storageChecker(String product) throws IOException {
         product = product.toLowerCase();
         Scanner scanner = new Scanner(storage);
         while (scanner.hasNextLine()) {
@@ -76,5 +59,14 @@ public class FileManager<T> {
             }
         }
         return -1;
+    }
+
+    public String printProductList() throws FileNotFoundException {
+        StringBuilder result = new StringBuilder();
+        Scanner scanner = new Scanner(storage);
+        while (scanner.hasNextLine()) {
+            result.append(scanner.nextLine()).append("\n");
+        }
+        return result.toString();
     }
 }

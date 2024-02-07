@@ -28,8 +28,8 @@ public class PearRepositoryImpl implements PearRepository {
     }
 
     @Override
-    public void changePrice(int newPrice) {
-
+    public void changePrice(int newPrice) throws FileNotFoundException {
+        pearController.changePrice(newPrice);
     }
 
     @Override

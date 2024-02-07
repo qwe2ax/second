@@ -32,8 +32,8 @@ public class MeatRepositoryImpl implements MeatRepository {
     }
 
     @Override
-    public void changePrice(int newPrice) {
-
+    public void changePrice(int newPrice) throws FileNotFoundException {
+        meatController.changePrice(newPrice);
     }
 
     @Override

@@ -28,8 +28,8 @@ public class TomatoRepositoryImpl implements TomatoRepository {
     }
 
     @Override
-    public void changePrice(int newPrice) {
-
+    public void changePrice(int newPrice) throws FileNotFoundException {
+        tomatoController.changePrice(newPrice);
     }
 
     @Override

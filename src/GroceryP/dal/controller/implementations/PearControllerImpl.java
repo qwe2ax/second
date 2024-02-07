@@ -4,7 +4,6 @@ import GroceryP.FileManager;
 import GroceryP.dal.controller.interfaces.PearController;
 import GroceryP.entities.Pear;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -16,18 +15,15 @@ public class PearControllerImpl<T> implements PearController {
 
     List<Pear> pearList = new ArrayList<>();
 
-
     public static Pear pear = null;
     FileManager fileManager = new FileManager();
-    private static final String fileName = "products.txt";
-    private final File storage = new File(fileName);
 
 
     @Override
     public void init() {
         try {
-            pear = new Pear(fileManager.priceChanger("Груша"), "Груша",
-                    fileManager.storageChanger("Груша"));
+            pear = new Pear(fileManager.priceChecker("Груша"), "Груша",
+                    fileManager.storageChecker("Груша"));
             if (!pearList.isEmpty()) {
                 pearList.clear();
             }
@@ -39,7 +35,7 @@ public class PearControllerImpl<T> implements PearController {
 
     @Override
     public List get() throws IOException {
-        Scanner scanner = new Scanner(storage);
+        Scanner scanner = new Scanner(FileManager.storage);
         while (scanner.hasNextLine()) {
             String s = scanner.nextLine();
             if (s.contains("Груша")) {
@@ -51,8 +47,9 @@ public class PearControllerImpl<T> implements PearController {
     }
 
     @Override
-    public void changePrice(int newPrice) {
-
+    public void changePrice(int newPrice) throws FileNotFoundException {
+        pear.setPrice(newPrice);
+        fileManager.updateFile(pearList);
     }
 
     @Override
@@ -66,8 +63,7 @@ public class PearControllerImpl<T> implements PearController {
         if (pear.getStorage() - count < 0) {
             pear.setStorage(0);
             fileManager.updateFile(pearList);
-        }
-        else {
+        } else {
             pear.setStorage(pear.getStorage() - count);
             fileManager.updateFile(pearList);
         }

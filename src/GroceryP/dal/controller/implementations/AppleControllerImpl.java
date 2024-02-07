@@ -4,7 +4,6 @@ import GroceryP.FileManager;
 import GroceryP.dal.controller.interfaces.AppleController;
 import GroceryP.entities.Apple;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,14 +19,13 @@ public class AppleControllerImpl<T> implements AppleController {
 
     public static Apple apple = null;
     FileManager fileManager = new FileManager();
-    private static final String fileName = "products.txt";
-    private final File storage = new File(fileName);
+
 
     @Override
     public void init() {
         try {
-            apple = new Apple(fileManager.priceChanger("Яблоко"), "Яблоко",
-                    fileManager.storageChanger("Яблоко"));
+            apple = new Apple(fileManager.priceChecker("Яблоко"), "Яблоко",
+                    fileManager.storageChecker("Яблоко"));
             if (!appleList.isEmpty()) {
                 appleList.clear();
             }
@@ -42,7 +40,7 @@ public class AppleControllerImpl<T> implements AppleController {
         if (!ap.isEmpty()) {
             return ap;
         }
-        Scanner scanner = new Scanner(storage);
+        Scanner scanner = new Scanner(FileManager.storage);
         while (scanner.hasNextLine()) {
             String s = scanner.nextLine();
             if (s.contains("Яблоко")) {

@@ -2,10 +2,8 @@ package GroceryP.dal.controller.implementations;
 
 import GroceryP.FileManager;
 import GroceryP.dal.controller.interfaces.TomatoController;
-import GroceryP.entities.Pear;
 import GroceryP.entities.Tomato;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,18 +15,15 @@ public class TomatoControllerImpl<T> implements TomatoController {
 
     List<Tomato> tomatoList = new ArrayList<>();
 
-
     public static Tomato tomato = null;
     FileManager fileManager = new FileManager();
-    private static final String fileName = "products.txt";
-    private final File storage = new File(fileName);
 
 
     @Override
     public void init() {
         try {
-            tomato = new Tomato(fileManager.priceChanger("Помидор"), "Помидор",
-                    fileManager.storageChanger("Помидор"));
+            tomato = new Tomato(fileManager.priceChecker("Помидор"), "Помидор",
+                    fileManager.storageChecker("Помидор"));
             if (!tomatoList.isEmpty()) {
                 tomatoList.clear();
             }
@@ -40,7 +35,7 @@ public class TomatoControllerImpl<T> implements TomatoController {
 
     @Override
     public List get() throws IOException {
-        Scanner scanner = new Scanner(storage);
+        Scanner scanner = new Scanner(FileManager.storage);
         while (scanner.hasNextLine()) {
             String s = scanner.nextLine();
             if (s.contains("Помидор")) {
@@ -52,8 +47,9 @@ public class TomatoControllerImpl<T> implements TomatoController {
     }
 
     @Override
-    public void changePrice(int newPrice) {
-
+    public void changePrice(int newPrice) throws FileNotFoundException {
+        tomato.setPrice(newPrice);
+        fileManager.updateFile(tomatoList);
     }
 
     @Override
@@ -67,8 +63,7 @@ public class TomatoControllerImpl<T> implements TomatoController {
         if (tomato.getStorage() - count < 0) {
             tomato.setStorage(0);
             fileManager.updateFile(tomatoList);
-        }
-        else {
+        } else {
             tomato.setStorage(tomato.getStorage() - count);
             fileManager.updateFile(tomatoList);
         }

@@ -2,10 +2,8 @@ package GroceryP.dal.controller.implementations;
 
 import GroceryP.FileManager;
 import GroceryP.dal.controller.interfaces.MeatController;
-import GroceryP.entities.Apple;
 import GroceryP.entities.Meat;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,18 +16,16 @@ public class MeatControllerImpl<T> implements MeatController {
 
     List<Meat> meatList = new ArrayList<>();
 
-
     public static Meat meat = null;
     FileManager fileManager = new FileManager();
-    private static final String fileName = "products.txt";
-    private final File storage = new File(fileName);
+
 
 
     @Override
     public void init() {
         try {
-            meat = new Meat(fileManager.priceChanger("Мясо"), "Мясо",
-                    fileManager.storageChanger("Мясо"));
+            meat = new Meat(fileManager.priceChecker("Мясо"), "Мясо",
+                    fileManager.storageChecker("Мясо"));
             if (!meatList.isEmpty()) {
                 meatList.clear();
             }
@@ -44,7 +40,7 @@ public class MeatControllerImpl<T> implements MeatController {
         if (!mea.isEmpty()) {
             return mea;
         }
-        Scanner scanner = new Scanner(storage);
+        Scanner scanner = new Scanner(FileManager.storage);
         while (scanner.hasNextLine()) {
             String s = scanner.nextLine();
             if (s.contains("Мясо")) {
@@ -56,8 +52,9 @@ public class MeatControllerImpl<T> implements MeatController {
     }
 
     @Override
-    public void changePrice(int newPrice) {
-
+    public void changePrice(int newPrice) throws FileNotFoundException {
+        meat.setPrice(newPrice);
+        fileManager.updateFile(meatList);
     }
 
     @Override

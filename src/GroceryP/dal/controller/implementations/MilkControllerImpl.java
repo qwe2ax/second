@@ -2,10 +2,8 @@ package GroceryP.dal.controller.implementations;
 
 import GroceryP.FileManager;
 import GroceryP.dal.controller.interfaces.MilkController;
-import GroceryP.entities.Meat;
 import GroceryP.entities.Milk;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,15 +18,14 @@ public class MilkControllerImpl<T> implements MilkController {
 
     public static Milk milk = null;
     FileManager fileManager = new FileManager();
-    private static final String fileName = "products.txt";
-    private final File storage = new File(fileName);
+
 
 
     @Override
     public void init() {
         try {
-            milk = new Milk(fileManager.priceChanger("Молоко"), "Молоко",
-                    fileManager.storageChanger("Молоко"));
+            milk = new Milk(fileManager.priceChecker("Молоко"), "Молоко",
+                    fileManager.storageChecker("Молоко"));
             if (!milkList.isEmpty()) {
                 milkList.clear();
             }
@@ -43,7 +40,7 @@ public class MilkControllerImpl<T> implements MilkController {
         if (!milkList.isEmpty()) {
             return milkList;
         }
-        Scanner scanner = new Scanner(storage);
+        Scanner scanner = new Scanner(FileManager.storage);
         while (scanner.hasNextLine()) {
             String s = scanner.nextLine();
             if (s.contains("Молоко")) {
@@ -55,8 +52,9 @@ public class MilkControllerImpl<T> implements MilkController {
     }
 
     @Override
-    public void changePrice(int newPrice) {
-
+    public void changePrice(int newPrice) throws FileNotFoundException {
+        milk.setPrice(newPrice);
+        fileManager.updateFile(milkList);
     }
 
     @Override

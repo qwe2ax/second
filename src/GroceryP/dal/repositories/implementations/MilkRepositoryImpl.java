@@ -27,8 +27,8 @@ public class MilkRepositoryImpl implements MilkRepository {
     }
 
     @Override
-    public void changePrice(int newPrice) {
-
+    public void changePrice(int newPrice) throws FileNotFoundException {
+        milkController.changePrice(newPrice);
     }
 
     @Override

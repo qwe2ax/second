@@ -1,15 +1,12 @@
 package GroceryP.util;
 
-import GroceryP.entities.Product;
+import GroceryP.FileManager;
 
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UtilStrings {
+public class StringUtils {
 
-    static File storage = new File("products.txt");
 
     public void printMenu() {
         System.out.println("Меню действий:\n" + "1. Купить товар\n" +
@@ -20,7 +17,7 @@ public class UtilStrings {
     }
 
     public String sumOfAllProducts() throws FileNotFoundException {
-        Scanner scanner = new Scanner(storage);
+        Scanner scanner = new Scanner(FileManager.storage);
         long sum = 0;
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
@@ -31,7 +28,7 @@ public class UtilStrings {
     }
 
     public String sumOfProduct(String productName) throws FileNotFoundException {
-        Scanner scanner = new Scanner(storage);
+        Scanner scanner = new Scanner(FileManager.storage);
         long sum;
         while (scanner.hasNextLine()) {
             String line = scanner.nextLine();
