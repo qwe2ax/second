@@ -14,8 +14,6 @@ import java.util.List;
 
 public class MeatRepositoryImpl implements MeatRepository {
 
-    List<Meat> meatList;
-
     MeatController meatController = new MeatControllerImpl<>();
 
     @Override
@@ -31,6 +29,11 @@ public class MeatRepositoryImpl implements MeatRepository {
     @Override
     public void add(int countOfMeat) throws FileNotFoundException {
         meatController.add(countOfMeat);
+    }
+
+    @Override
+    public void changePrice(int newPrice) {
+
     }
 
     @Override

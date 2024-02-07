@@ -26,18 +26,25 @@ public class FileManager<T> {
     public void updateFile(List<T> someProduct) throws FileNotFoundException {
         StringBuilder res = new StringBuilder();
         Scanner scanner = new Scanner(storage);
+        int i = 1;
         while (scanner.hasNextLine()) {
             String[] ar = someProduct.toString().toLowerCase().split(":");
             String str = scanner.nextLine();
             if (!str.toLowerCase().contains(ar[1])) {
-                res.append(str);
+                if (i == 4 && !str.isEmpty()) {
+                    res.append(str);
+                }
+                else if (!str.isEmpty()) {
+                    res.append(str).append("\n");
+                }
             }
+            i++;
         }
         try {
             PrintWriter printWriter = new PrintWriter(storage);
             printWriter.println(res);
             for (T product : someProduct) {
-                printWriter.println(product + "\n");
+                printWriter.println(product);
             }
             printWriter.close();
         } catch (FileNotFoundException e) {

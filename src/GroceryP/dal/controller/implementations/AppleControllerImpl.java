@@ -39,6 +39,9 @@ public class AppleControllerImpl<T> implements AppleController {
 
     @Override
     public List<T> get() throws IOException {
+        if (!ap.isEmpty()) {
+            return ap;
+        }
         Scanner scanner = new Scanner(storage);
         while (scanner.hasNextLine()) {
             String s = scanner.nextLine();
@@ -51,19 +54,25 @@ public class AppleControllerImpl<T> implements AppleController {
     }
 
     @Override
-    public void add(int countOfApples) throws FileNotFoundException {
-        apple.setStorage(apple.getStorage() + countOfApples);
+    public void changePrice(int newPrice) throws FileNotFoundException {
+        apple.setPrice(newPrice);
         fileManager.updateFile(appleList);
     }
 
     @Override
-    public void remove(int countOfApples) throws FileNotFoundException {
-        if (apple.getStorage() - countOfApples <= 0) {
+    public void add(int count) throws FileNotFoundException {
+        apple.setStorage(apple.getStorage() + count);
+        fileManager.updateFile(appleList);
+    }
+
+    @Override
+    public void remove(int count) throws FileNotFoundException {
+        if (apple.getStorage() - count <= 0) {
             apple.setStorage(0);
             fileManager.updateFile(appleList);
         }
         else {
-            apple.setStorage(apple.getStorage() - countOfApples);
+            apple.setStorage(apple.getStorage() - count);
             fileManager.updateFile(appleList);
         }
     }

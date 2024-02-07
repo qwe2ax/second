@@ -11,7 +11,9 @@ public interface BaseRepository<T> {
 
     List<T> get() throws IOException;
 
-    void add(int countOfApples) throws FileNotFoundException;
+    void add(int countOfProducts) throws FileNotFoundException;
 
-    void remove(int countOfApples) throws FileNotFoundException;
+    void changePrice(int newPrice) throws FileNotFoundException;
+
+    void remove(int countOfProducts) throws FileNotFoundException;
 }

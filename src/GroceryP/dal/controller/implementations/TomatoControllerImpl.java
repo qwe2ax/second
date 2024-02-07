@@ -1,9 +1,9 @@
 package GroceryP.dal.controller.implementations;
 
 import GroceryP.FileManager;
-import GroceryP.dal.controller.interfaces.MeatController;
-import GroceryP.entities.Apple;
-import GroceryP.entities.Meat;
+import GroceryP.dal.controller.interfaces.TomatoController;
+import GroceryP.entities.Pear;
+import GroceryP.entities.Tomato;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,14 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class MeatControllerImpl<T> implements MeatController {
+public class TomatoControllerImpl<T> implements TomatoController {
+    List<T> productList = new ArrayList();
 
-    List<T> mea = new ArrayList();
-
-    List<Meat> meatList = new ArrayList<>();
+    List<Tomato> tomatoList = new ArrayList<>();
 
 
-    public static Meat meat = null;
+    public static Tomato tomato = null;
     FileManager fileManager = new FileManager();
     private static final String fileName = "products.txt";
     private final File storage = new File(fileName);
@@ -28,12 +27,12 @@ public class MeatControllerImpl<T> implements MeatController {
     @Override
     public void init() {
         try {
-            meat = new Meat(fileManager.priceChanger("Мясо"), "Мясо",
-                    fileManager.storageChanger("Мясо"));
-            if (!meatList.isEmpty()) {
-                meatList.clear();
+            tomato = new Tomato(fileManager.priceChanger("Помидор"), "Помидор",
+                    fileManager.storageChanger("Помидор"));
+            if (!tomatoList.isEmpty()) {
+                tomatoList.clear();
             }
-            meatList.add(meat);
+            tomatoList.add(tomato);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -41,15 +40,12 @@ public class MeatControllerImpl<T> implements MeatController {
 
     @Override
     public List get() throws IOException {
-        if (!mea.isEmpty()) {
-            return mea;
-        }
         Scanner scanner = new Scanner(storage);
         while (scanner.hasNextLine()) {
             String s = scanner.nextLine();
-            if (s.contains("Мясо")) {
-                mea.add((T) s);
-                return mea;
+            if (s.contains("Помидор")) {
+                productList.add((T) s);
+                return productList;
             }
         }
         return null;
@@ -62,19 +58,19 @@ public class MeatControllerImpl<T> implements MeatController {
 
     @Override
     public void add(int count) throws FileNotFoundException {
-        meat.setStorage(meat.getStorage() + count);
-        fileManager.updateFile(meatList);
+        tomato.setStorage(tomato.getStorage() + count);
+        fileManager.updateFile(tomatoList);
     }
 
     @Override
     public void remove(int count) throws FileNotFoundException {
-        if (meat.getStorage() - count < 0) {
-            meat.setStorage(0);
-            fileManager.updateFile(meatList);
+        if (tomato.getStorage() - count < 0) {
+            tomato.setStorage(0);
+            fileManager.updateFile(tomatoList);
         }
         else {
-            meat.setStorage(meat.getStorage() - count);
-            fileManager.updateFile(meatList);
+            tomato.setStorage(tomato.getStorage() - count);
+            fileManager.updateFile(tomatoList);
         }
     }
 }

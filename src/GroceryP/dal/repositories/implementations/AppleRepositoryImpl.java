@@ -33,6 +33,11 @@ public class AppleRepositoryImpl implements AppleRepository {
     }
 
     @Override
+    public void changePrice(int newPrice) throws FileNotFoundException {
+        appleController.changePrice(newPrice);
+    }
+
+    @Override
     public void remove(int countOfApples) throws FileNotFoundException {
         appleController.remove(countOfApples);
     }
